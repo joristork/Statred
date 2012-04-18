@@ -1,0 +1,15 @@
+In de handout zijn extra secties opgenomen! Maak de opgaven in secties 11 en
+12.
+
+De opgave in sectie 11 is een tentamen vraag van vorig jaar. Deze opdracht is
+NIET verplicht en hoeft niet ingeleverd te worden.
+
+De opgaven in sectie 12 moeten wel ingeleverd worden in de vorm van
+werkende Python code. Gaarne per tweetal een zip file uploaden met de naam
+multivariate_sn1_sn2.zip. De inhoud van de zip file moet uitgepakt op top
+level een Python script multivariate_sn1_sn2.py bevatten. Uitvoeren van dit
+script moet genoeg zijn om het werk te beoordelen. NB vervang sn1 en sn2 door
+de twee studienummers.
+
+De deadline voor deze opdracht is gelijk aan de start van het volgende
+practicum.
