@@ -47,16 +47,27 @@ def print_mean_covariance():
 
 def plot_with_means():
     data = load_iris()
+    data_m = mean(data)
     setosa = data[:50]
+    setosa_m = mean(setosa)
     versicolor = data[50:100]
+    versicolor_m = mean(versicolor)
     virginica = data[100:150]
+    virginica_m = mean(virginica)
+
     for i in xrange(4):
         for j in xrange(4):
             if i is not j:
                 plt.subplot(4,4,(1 + j+(i*4)) )
-                plt.plot(setosa[:,i],setosa[:,j],'ro')
-                plt.plot(versicolor[:,i],versicolor[:,j],'go')
-                plt.plot(virginica[:,i],virginica[:,j],'bo')
+                plt.plot(setosa[:,i],setosa[:,j],'ro', ms=3.0)
+                plt.plot(versicolor[:,i],versicolor[:,j],'go', ms=3.0)
+                plt.plot(virginica[:,i],virginica[:,j],'bo', ms=3.0)
+
+                """ means """
+                plt.plot(data_m[i], data_m[j], fillstyle='full',marker='+', c='black', ms=15.0)
+                plt.plot(setosa_m[i], setosa_m[j], fillstyle='full',marker='+', c='r', ms=15.0)
+                plt.plot(versicolor_m[i], versicolor_m[j], fillstyle='full',marker='+', c='g', ms=15.0)
+                plt.plot(virginica_m[i], virginica_m[j], fillstyle='full',marker='+', c='b', ms=15.0)
     plt.show()
 
     menu.run()
