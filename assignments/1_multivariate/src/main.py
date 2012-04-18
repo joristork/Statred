@@ -23,16 +23,8 @@ def mean(data):
     return np.mean(data, axis=0)
 
 def covariance(data):
-    print 'data[0]: '
-    print data[0]
-    m = mean(data[:,:4])
-    print 'm: '
-    print m
-    d = data[:,:4] - m
-    print 'd[0]: '
-    print d[0]
-    print 's: '
-    print np.sum(map(lambda x: np.outer(x, x), d), axis = 0) / (len(data) - 1.0)
+    m = mean(data)
+    d = data - m
     return np.sum(map(lambda x: np.outer(x, x), d), axis = 0) / (len(data) - 1.0)
 
 def print_mean_covariance():
