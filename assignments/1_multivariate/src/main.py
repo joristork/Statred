@@ -29,8 +29,17 @@ def covariance(data):
 
 def print_mean_covariance():
     data = load_iris()
-    print '\nMean:\n%s' % str(mean(data))
-    print '\nCovariance:\n%s' % str(covariance(data))
+    print '\nMean (overall):\n%s' % str(mean(data))
+    print '\nCovariance (overall):\n%s' % str(covariance(data))
+
+    print '\nMean (setosa):\n%s' % str(mean(data[:50]))
+    print '\nCovariance (setosa):\n%s' % str(covariance(data[:50]))
+
+    print '\nMean (versicolor):\n%s' % str(mean(data[50:100]))
+    print '\nCovariance (versicolor):\n%s' % str(covariance(data[50:100]))
+
+    print '\nMean (virginica):\n%s' % str(mean(data[101:150]))
+    print '\nCovariance (virginica):\n%s' % str(covariance(data[101:150]))
 
     raw_input('\nPress Enter')
     menu.run()
