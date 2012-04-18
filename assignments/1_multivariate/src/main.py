@@ -31,9 +31,9 @@ def covariance(data):
     d = data[:,:4] - m
     print 'd[0]: '
     print d[0]
-    s = np.sum(np.dot(d, np.transpose(d)), axis = 0)
-    print s[0]
-    return s / (len(data) - 1)
+    print 's: '
+    print np.sum(map(lambda x: np.outer(x, x), d), axis = 0) / (len(data) - 1.0)
+    return np.sum(map(lambda x: np.outer(x, x), d), axis = 0) / (len(data) - 1.0)
 
 def print_mean_covariance():
     data = load_iris()
