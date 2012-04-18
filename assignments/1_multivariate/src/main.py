@@ -14,6 +14,7 @@ __author__ = "Joris Stork, Lucas Swartsenburg"
 
 import menu
 from iris_to_numpy import load_iris
+import matplotlib.pyplot as plt
 import numpy as np
 import sys
 import os
@@ -45,7 +46,18 @@ def print_mean_covariance():
     menu.run()
 
 def plot_with_means():
-    pass
+    data = load_iris()
+    setosa = data[:50]
+    versicolor = data[50:100]
+    virginica = data[100:150]
+    for i in xrange(4):
+        for j in xrange(4):
+            if i is not j:
+                plt.subplot(4,4,(1 + j+(i*4)) )
+                plt.plot(setosa[:,i],setosa[:,j],'ro')
+                plt.plot(versicolor[:,i],versicolor[:,j],'go')
+                plt.plot(virginica[:,i],virginica[:,j],'bo')
+    plt.show()
 
     menu.run()
 
