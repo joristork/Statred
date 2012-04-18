@@ -1,0 +1,39 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage{listings,amssymb,amsmath,amsthm,graphicx,float,hyperref,subfig}
+\addtolength{\parskip}{\baselineskip}
+
+\author{Joris Stork (6185320) \and Lucas Swartsenburg (6174388)}
+\title{Excercise 11: Multivariate Stochasten}
+
+
+\begin{document}
+\maketitle
+\setcounter{tocdepth}{2}
+
+\section{Vraag: 1}
+
+$$E(X) = \begin{bmatrix} X_{1} \\ \vdots \\ X_{n} \end{bmatrix}$$
+met:
+$$E(X_i) = \sum_{X_i \in \mathbb{R}^n} x p_{X}(x) $$
+(discreet)\\
+of met:
+$$E(X_i) = \int_{X_i \in \mathbb{R}^n} x p_{X}(x)\; \mathrm{d}x$$
+(continue)
+
+\section{Vraag: 2}
+Als men slechts \'{e}\'{e}n scalar gebruikt voor de variantie dan zou het gebied waarin de waardes naar vewachting komen altijd cirkelvormig zijn. In figuur 2 van de handout staan twee puntwolken waarin de verspreiding van punten duidelijk niet cirkelvormig zijn. Daarbij hebben de puntwolken beide een andere orientatie, die ook niet aan te geven is met een enkele scalaire waarde. Beide problemen kunnen opgelost worden met een "directional variance": 
+$$Var(Y) = E(( Y - E(Y))^2)$$
+
+\section{Vraag: 3}
+De covariantie van de vector $X$ is gegeven als:
+
+$$ Cov(X) = Cov(X,X) = E( (X - E(X)) (X - E(X))^T )$$
+
+Dit zal resulteren in een $n*n$ matrix.
+
+\section{Vraag: 4}
+
+
+\section{Vraag: 5}
+
+\end{document}
