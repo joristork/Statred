@@ -10,7 +10,7 @@
 
 __author__ = "Joris Stork, Lucas Swartsenburg"
 
-from main import print_mean_covariance, plot_with_means, visualise_covariance
+from main import print_mean_covariance, plot_iris_means_covariance
 import sys
 import os
 
@@ -21,9 +21,8 @@ def run():
  
     print '\n --- MAIN MENU ---'
     print '\n [1] Show mean and covariance of Iris dataset'
-    print '\n [2] Plot Iris dataset with means of set and classes'
-    print '\n [3] Visualise covariance matrix'
-    print '\n [4] Exit'
+    print '\n [2] Plot Iris dataset with means'
+    print '\n [3] Exit'
     fails = 0
 
     def prompt(fails):
@@ -36,10 +35,8 @@ def run():
         if choice == '1':
             print_mean_covariance()
         elif choice == '2':
-            plot_with_means()
+            plot_iris_means_covariance()
         elif choice == '3':
-            visualise_covariance()
-        elif choice == '4':
             print '\nGoodbye!\n'
             sys.exit(0)
         else:
