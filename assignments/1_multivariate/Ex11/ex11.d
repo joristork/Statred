@@ -1,0 +1,43 @@
+# vim: ft=make
+.PHONY: ex11._graphics
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/generic/ifxetex/ifxetex.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/generic/oberdiek/atbegshi.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/generic/oberdiek/bigintcalc.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/generic/oberdiek/bitset.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/generic/oberdiek/etexcmds.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/generic/oberdiek/ifluatex.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/generic/oberdiek/ifpdf.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/generic/oberdiek/ifvtex.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/generic/oberdiek/infwarerr.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/generic/oberdiek/intcalc.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/generic/oberdiek/kvsetkeys.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/generic/oberdiek/ltxcmds.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/generic/oberdiek/pdftexcmds.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/amscls/amsthm.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/base/article.cls
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/caption/caption.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/caption/caption3.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/float/float.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/listings/listings.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/listings/lstmisc.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/oberdiek/hycolor.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/oberdiek/kvoptions.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/oberdiek/xcolor-patch.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: /usr/share/texmf-texlive/tex/latex/subfig/subfig.sty
+ex11.aux ex11.aux.make ex11.d ex11.pdf: ex11.tex
+.SECONDEXPANSION:
