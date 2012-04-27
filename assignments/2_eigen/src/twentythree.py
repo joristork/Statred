@@ -29,12 +29,23 @@ def covariance(data):
 
 def main():
     print '\n --- Sample generator --- '
-    print u'\n Please enter the elements of the mean vector \u03BC'
-    m = np.zeros((4), dtype=np.int )
-    m[0] = raw_input(u'\n \u03BC[0] >> ')
-    m[1] = raw_input(u'\n \u03BC[0] >> ')
-    m[2] = raw_input(u'\n \u03BC[0] >> ')
-    m[3] = raw_input(u'\n \u03BC[0] >> ')
+    data_file = 'data.npy' # used to store the generated data for assignment 24'
+    m = np.array([[2], [5], [5], [2]])
+    print '\n mu:'
+    print m
+    S = np.array([[1,3,2,4], [3, 3, 1, 2], [2, 1, 2, 1], [4, 2, 1, 3]])
+    print '\n Sigma:'
+    print S
+    d, U = np.linalg.eig(S) 
+    L = np.diagflat(d) # Lambda. 4x4 matrix with eigenvalues on diagonal
+    X = np.random.randn(4, 1000) # random samples from N(0,1)
+    A = np.dot(U, np.sqrt(np.abs(L))) # interim matrix
+    Y = np.dot(A,X) + np.tile(m, 1000) # add mu to each sample adjusted by A
+    np.save(data_file, Y)
+    print '\n Data written to %s\n' % data_file
+
+
+
 
     # prompt for covariance matrix
     #
