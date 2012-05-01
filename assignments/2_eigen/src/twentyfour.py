@@ -19,56 +19,46 @@ import os
 
 
 def mean(data):
-    return np.mean(data, axis=0)
+
+    return np.mean(data, axis=1).reshape(np.shape(data)[0], 1)
 
 
 def covariance(data):
     m = mean(data)
     d = data - m
-    return np.sum(map(lambda x: np.outer(x, x), d), axis = 0) / (len(data) - 1.0)
+    temp = np.zeros((np.shape(data)[0],np.shape(data)[1],np.shape(data)[0]),dtype=float)
+    for i in xrange(np.shape(data)[1]):
+        temp[:,i] = np.outer(data[:,i], data[:,i])
+    return np.sum(temp, axis = 1) / (np.shape(data)[1] - 1.0)
+
 
 def main():
-    data = np.load("data.npy", 'r').T
+    data = np.load("data.npy", 'r')
+    S = np.load("cov.npy", 'r')
+    m = np.load("mean.npy", 'r')
+
+    print '\nOur generated sample:\n'
     print data
-    original_cov = np.load("cov.npy", 'r')
-    original_mean = np.load("mean.npy", 'r')
+    print "\nThe sample contains " + str(data.shape[1]) + " data points."
 
-    print "The dataset contains " + str(data.shape[0]) + " samples."
+    estm = mean(data)
+    print "\nDifference between means: estimate from sample minus original:\n"
+    print (estm - m)
 
-    print "\nEstimation of the mean:\n"
-    mean = np.mean(data, axis = 0)
-    print mean
+    estS = covariance(data)
+    print "\n Difference between covariance matrices: estimate from sample minus original:\n"
+    print (estS - S)
 
-    print "\nOriginal mean:\n"
-    print original_mean    
-
-    print "\nCompare to original mean (estimate - original):\n"
-    print (mean - original_mean)
-    
-
-    print "\nEstimation of the covariance matrix\n"
-    cov = covariance(data)
-    print cov
-
-    print "\nOriginal covariance:\n"
-    print original_cov
-
-
-    print "\nCompare to original covariance (estimate - origional):\n"
-    print cov.T - original_cov
-
-
-
-    print "\nStart estimating mu repeatedly\n"
+    print "\n\nEstimating mu repeatedly...\n"
     means = []
     nmeans= 100
     for i in xrange(nmeans):
         means.append(np.mean(data[i * data.shape[0] / nmeans : (i+1)*nmeans - 1], axis = 0).tolist())
     ms = np.array(means)
 
-    print "\nThe covariance has become smaller, as expected:\n"
+    print "The covariance has become smaller, as expected:\n"
     data =  covariance(ms)
-    print data
+    print '%s\n' % str(data)
 
 if __name__ == "__main__":
     print '\n*** Statistisch redeneren: assignment 2 | exercise 24 ***\n'

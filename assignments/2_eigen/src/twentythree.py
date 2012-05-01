@@ -14,58 +14,46 @@ __author__ = "Joris Stork, Lucas Swartsenburg"
 
 import matplotlib.pyplot as plt
 import numpy as np
+import pylab
 import sys
 import os
 
 
-def mean(data):
-    return np.mean(data, axis=0)
-
-
-def covariance(data):
-    m = mean(data)
-    d = data - m
-    return np.sum(map(lambda x: np.outer(x, x), d), axis = 0) / (len(data) - 1.0)
-
 def main():
     print '\n --- Sample generator --- '
+    sample_size = 1000
+    dimensions = 4
     data_file = 'data.npy' # used to store the generated data for assignment 24'
     m = np.array([[2], [5], [5], [2]])
+    np.save("mean.npy", m)
     print '\n mu:'
     print m
-    S = np.array([[1,3,2,4], [3, 3, 1, 2], [2, 1, 2, 1], [4, 2, 1, 3]])
+    temp = 1.0 + (np.random.rand(dimensions,dimensions))
+    S = temp * temp.T # make sure S is positive semidefinite, symmetric
+    np.save("cov.npy", S)
     print '\n Sigma:'
     print S
-    d, U = np.linalg.eig(S) 
+    d, U = np.linalg.eigh(S) 
+    ind = np.argsort(d)
+    d, U  = d[ind], U[:,ind]
     L = np.diagflat(d) # Lambda. 4x4 matrix with eigenvalues on diagonal
-    X = np.random.randn(4, 1000) # random samples from N(0,1)
-    A = np.dot(U, np.sqrt(np.abs(L))) # interim matrix
-    Y = np.dot(A,X) + np.tile(m, 1000) # add mu to each sample adjusted by A
+    A = np.dot(U, pylab.sqrt(np.abs(L))) # interim matrix
+    X = np.random.randn(4, sample_size) # random samples from N(0,1)
+    Y = np.dot(A,X) + np.tile(m, sample_size) # add mu to each (product of A, sample)
     np.save(data_file, Y)
     print '\n Data written to %s\n' % data_file
 
+    #exit(0)
 
+    #draw 12 scatter plots 
+    for i in xrange(4):
+        for j in xrange(4):
+            if i is not j:
+                """ draw samples  """
+                plt.subplot(4,4,(1 + j+(i*4)) )
+                plt.plot(Y[i], Y[j],'ro', ms=3.0)
 
-
-    # prompt for covariance matrix
-    #
-    # generate data matrix
-    #
-    # draw 12 scatter plots 
-    #for i in xrange(4):
-    #    for j in xrange(4):
-    #        if i is not j:
-    #            """ draw samples  """
-    #            plt.subplot(4,4,(1 + j+(i*4)) )
-    #            plt.plot(,,'ro', ms=3.0)
-
-    #            """ draw means """
-    #            plt.plot(, , marker='+',c='black', ms=15.0)
-
-
-    #plt.show()
-
-    #np.save('data.npy', data)
+    plt.show()
 
 
 if __name__ == "__main__":
