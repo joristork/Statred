@@ -40,6 +40,8 @@ def main():
     A = np.dot(U, pylab.sqrt(np.abs(L))) # interim matrix
     X = np.random.randn(4, sample_size) # random samples from N(0,1)
     Y = np.dot(A,X) + np.tile(m, sample_size) # add mu to each (product of A, sample)
+    #Y = np.random.multivariate_normal(m.reshape(4,), S, 1000).T # useful as control
+    print Y
     np.save(data_file, Y)
     print '\n Data written to %s\n' % data_file
 
