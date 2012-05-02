@@ -29,7 +29,7 @@ def main():
     print '\n mu:'
     print m
     temp = 1.0 + (np.random.rand(dimensions,dimensions))
-    S = temp * temp.T # make sure S is positive semidefinite, symmetric
+    S = np.dot(temp, temp.T) # make sure S is positive semidefinite, symmetric
     np.save("cov.npy", S)
     print '\n Sigma:'
     print S
