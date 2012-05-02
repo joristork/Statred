@@ -14,7 +14,6 @@ __author__ = "Joris Stork, Lucas Swartsenburg"
 
 import matplotlib.pyplot as plt
 import numpy as np
-import pylab
 import sys
 import os
 
@@ -37,7 +36,7 @@ def main():
     ind = np.argsort(d)
     d, U  = d[ind], U[:,ind]
     L = np.diagflat(d) # Lambda. 4x4 matrix with eigenvalues on diagonal
-    A = np.dot(U, pylab.sqrt(np.abs(L))) # interim matrix
+    A = np.dot(U, np.sqrt(L))#(np.abs(L))) # interim matrix
     X = np.random.randn(4, sample_size) # random samples from N(0,1)
     Y = np.dot(A,X) + np.tile(m, sample_size) # add mu to each (product of A, sample)
     #Y = np.random.multivariate_normal(m.reshape(4,), S, 1000).T # useful as control
