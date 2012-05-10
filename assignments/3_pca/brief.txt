@@ -1,0 +1,2 @@
+Maak opgave 5.1 en kies dan of 5.2 of 5.3. De opzet van beide opdrachten is hetzelfde alleen een andere dataset wordt gebruikt.
+Probeer deze opdrachten echt te gebruiken om de PCA te begrijpen. Op het tentamen zal er zeer zeer waarschijnlijk een opgave over de PCA zijn.
