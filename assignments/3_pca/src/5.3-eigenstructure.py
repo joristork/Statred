@@ -18,37 +18,97 @@ __author__ = "Joris Stork, Lucas Swartsenburg"
 
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 
 def main():
-    a = plt.imread('yard.jpg')[::-1,:] # image flipped ...
-    print a.shape
-    plt.figure(1)
+    """
+    1. reads image
+    2. takes detail
+    3. saves figure with image beside detail
+    4. finds covariance of elements of the sample that consists of all 25x25px
+        details of the image.
+    5. saves scree diagram of eigenvalues of covariance matrix from (4)
+    6. saves plots of first 6 eigenvectors
+    7. displays detail and its reconstruction from k eigenvectors
+
+    """
+
+    x = plt.imread('yard.jpg')[::-1,:] # image flipped ...
+    h, w = x.shape
+    xsize = h*w
+
+    plt.figure()
     plt.subplot(1,2,1)
-    plt.imshow(a, cmap=plt.cm.gray)
-    d = a[75:100,170:195]
+    plt.imshow(x, cmap=plt.cm.gray)
+    d = x[75:100,170:195]
     plt.subplot(1,2,2)
     plt.imshow(d, cmap=plt.cm.gray)
     plt.savefig('yard_with_detail.pdf')
-    print d.shape
     
-    sstep = 25
-    ssize = sstep * sstep
-    ssum = np.zeros((ssize,), dtype=float)
-    sxxt = np.zeros((ssize,ssize),dtype=float)
-    h, w = a.shape
-    aflat = a.reshape(h*w,)
-    print np.cov(a)
-    exit(0)
-    for i in xrange(h - sstep):
-        for j in xrange(w - sstep):
-            xi = a[i:i+sstep, j:j+sstep].reshape(ssize,)
-            ssum = ssum + xi
-            sxxt = sxxt + np.outer(xi, xi)
-    m = ssum / 53824.0 
-    S = (sxxt - 5324.0 * np.outer(m,m)) / (53824.0 - 1)
-    np.save('5.3_cov.npy', S)
-    print S
+    xystep = 25
+    xisize = xystep * xystep # 
+    sxi = np.zeros((xisize,), dtype=float) # sum of measurements
+    sxixit = np.zeros((xisize,xisize),dtype=float) # holds sum(xi * xi.T)
+    S = None
+    n = 0.0
+    if os.path.isfile("5.3_cov.npy"):
+        S = np.load("5.3_cov.npy")
+    else:
+        for j in xrange(h - xystep+1):
+            for k in xrange(w - xystep+1):
+                n += 1
+                xi = x[j:j+xystep, k:k+xystep]
+                if j == 75 and k == 170:
+                    plt.figure()
+                    plt.subplot(1,1,1)
+                    plt.imshow(xi, cmap=plt.cm.gray)
+                    plt.savefig('samedetail.pdf')
+                if j*k == 10000:
+                    plt.figure()
+                    plt.subplot(1,1,1)
+                    plt.imshow(xi, cmap=plt.cm.gray)
+                    plt.savefig('randetail.pdf')
+                if j*k == 20000:
+                    plt.figure()
+                    plt.subplot(1,1,1)
+                    plt.imshow(xi, cmap=plt.cm.gray)
+                    plt.savefig('randetail2.pdf')
+                if j*k == 30000:
+                    plt.figure()
+                    plt.subplot(1,1,1)
+                    plt.imshow(xi, cmap=plt.cm.gray)
+                    plt.savefig('randetail3.pdf')
+                xi = xi.reshape(xisize)
+                sxi += xi
+                sxixit += np.outer(xi, xi)
+
+        m = sxi / n
+                
+        print '\nn: ', n
+        print '\nsxi.shape: ', sxi.shape
+        print '\nsxixit.shape: ', sxixit.shape
+        print '\nsxi: \n', sxi
+        print '\nsxixit: \n', sxixit
+        print '\nnp.outer(m,m): \n', np.outer(m,m)
+        print '\nn * np.outer(m,m): \n', n * np.outer(m,m)
+        print '\nm: \n', m
+
+        S = (sxixit - (n * np.outer(m,m))) / (n - 1.0)
+        np.save('5.3_cov.npy', S)
+    print '\nS: \n', S
+    l, V = np.linalg.eig(S)
+    si = np.argsort(l)[::-1]
+    l = l[si]
+    V = V[:,si]
+    plt.figure()
+    plt.bar(xrange(len(l)), l)
+    plt.savefig('5.3_scree.pdf')
+    plt.figure()
+    for j in xrange(6):
+        plt.subplot(2,3,j)
+        plt.imshow(V[j].reshape(25,25), cmap=plt.cm.gray)
+    plt.savefig('5.3_eigenvectors.pdf')
 
 
 if __name__ == "__main__":
