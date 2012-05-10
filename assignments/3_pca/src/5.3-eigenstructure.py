@@ -38,15 +38,16 @@ def main():
     sxxt = np.zeros((ssize,ssize),dtype=float)
     h, w = a.shape
     aflat = a.reshape(h*w,)
-    print np.cov(a)
-    exit(0)
-    for i in xrange(h - sstep):
-        for j in xrange(w - sstep):
+    nr_samples = (h-sstep + 1) * (w-sstep +1) * 1.0
+    for i in xrange(h - sstep + 1):
+        for j in xrange(w - sstep +1):
             xi = a[i:i+sstep, j:j+sstep].reshape(ssize,)
-            ssum = ssum + xi
-            sxxt = sxxt + np.outer(xi, xi)
-    m = ssum / 53824.0 
-    S = (sxxt - 5324.0 * np.outer(m,m)) / (53824.0 - 1)
+            ssum += xi
+            sxxt += np.outer(xi, xi)
+    m = ssum / nr_samples 
+    print m
+    print sxxt
+    S = (sxxt - (nr_samples * np.outer(m,m))) / (nr_samples - 1)
     np.save('5.3_cov.npy', S)
     print S
 
