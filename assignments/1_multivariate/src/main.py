@@ -66,6 +66,7 @@ def plot_iris_means_covariance():
     r = np.transpose(r_1 + r_2)
     ones = np.ones((len(phi),), dtype=float)
     C = covariance(data[:,:4])
+    print '\ntest: \n', np.cov(data[:,:4]) == covariance(data[:,:4])
     temp1 = map(lambda x : C * x, r)
     for i in xrange(len(temp1)):
         ellipse = np.inner(r[i], temp1[i])

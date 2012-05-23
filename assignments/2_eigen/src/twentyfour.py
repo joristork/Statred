@@ -16,51 +16,33 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 import os
+import twentythree
+import printouts
 
 
-def mean(data):
-
-    return np.mean(data, axis=1).reshape(np.shape(data)[0], 1)
-
-
-def covariance(data):
-    m = mean(data)
-    d = data - m
-    temp = np.zeros((np.shape(data)[0],np.shape(data)[1],np.shape(data)[0]),dtype=float)
-    for i in xrange(np.shape(data)[1]):
-        temp[:,i] = np.outer(data[:,i], data[:,i])
-    return np.sum(temp, axis = 1) / (np.shape(data)[1] - 1.0)
+def covariance(Y):
+    m = np.mean(Y, axis=1)
+    Yzm = Y - np.tile(m.reshape(Y.shape[0], 1), Y.shape[1])
+    return np.dot(Yzm, Yzm.T) / (Yzm.shape[1] - 1.0)
 
 
 def main():
-    data = np.load("data.npy", 'r')
-    S = np.load("cov.npy", 'r')
-    m = np.load("mean.npy", 'r')
+    S, m, Y = twentythree.generate()
 
-    print '\nOur generated sample:\n'
-    print data
-    print "\nThe sample contains " + str(data.shape[1]) + " data points."
+    estm = np.mean(Y, axis=1)
+    estS = covariance(Y)
 
-    estm = mean(data)
-    print "\nDifference between means: estimate from sample minus original:\n"
-    print (estm - m)
+    # we repeat the estimates for multiple Y ~ N(m,S)
+    M = np.empty((m.shape[0],0)) 
+    for i in xrange(500):
+        mi = np.mean(twentythree.generate()[2], axis=1)
+        M = np.append(M, mi.reshape(m.shape[0],1), axis=1)
+    S_M = covariance(M)
+    m_M = np.mean(M, axis=1)
 
-    estS = covariance(data)
-    print "\n Difference between covariance matrices: estimate from sample minus original:\n"
-    print (estS - S)
+    printouts.printout24(Y, S, m, estm, estS, S_M, m_M, M.shape[1])
 
-    print "\n\nEstimating mu repeatedly...\n"
-    means = []
-    nmeans= 100
-    for i in xrange(nmeans):
-        means.append(np.mean(data[i * data.shape[0] / nmeans : (i+1)*nmeans - 1], axis = 0).tolist())
-    ms = np.array(means)
-
-    print "The covariance has become smaller, as expected:\n"
-    data =  covariance(ms)
-    print '%s\n' % str(data)
 
 if __name__ == "__main__":
-    print '\n*** Statistisch redeneren: assignment 2 | exercise 24 ***\n'
-            
+    print '\n*** Statistisch redeneren: assignment 2 | exercise 24 ***'
     main()

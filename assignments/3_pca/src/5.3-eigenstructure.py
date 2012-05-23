@@ -15,6 +15,7 @@ __author__ = "Joris Stork, Lucas Swartsenburg"
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import sys
 
 
 def eigsorted(X):
@@ -61,11 +62,11 @@ def main():
 
     """
 
-    x = plt.imread('data/image.jpg')[-1::-1,:]          # image (de-flipped)
-    h, w = x.shape
-    xsize = h*w
+    im = plt.imread('data/image.jpg')[-1::-1,:]          # image (de-flipped)
+    h, w = im.shape
+    imsize = h*w
 
-    plotter(1, x)
+    plotter(1, im)
     
     # xi are the details in the image
     xystep = 25                                         # width of one detail
@@ -74,16 +75,27 @@ def main():
     sxixit = np.zeros((xisize,xisize),dtype=float)      # sum(xi * xi.T)
     S = None                                            # covariance matrix
     n = 0.0                                             # nr of details
+    X = np.empty((xisize,0))
+
+    S_alt = None
 
     if os.path.isfile("data/5.3_cov.npy"):              # try to recycle old S
         S = np.load("data/5.3_cov.npy")
     else:                                               # or else calculate S
         for j in xrange(h - xystep+1):
             for k in xrange(w - xystep+1):
-                n += 1.0
-                xi = x[j:j+xystep, k:k+xystep].reshape(xisize)
+                xi = im[j:j+xystep, k:k+xystep].reshape(xisize)
+                # X = np.append(X, xi.reshape(xisize,1), axis=1)
                 sxi += xi
                 sxixit += np.outer(xi, xi)
+
+                if n % 1 == 0:
+                    print 'xi: \n', xi
+                    print 'n: \n', n
+                    print 'sxi: \n', sxi
+                if n > 1:
+                    sys.exit(0)
+                n += 1.0
 
         m = sxi / n
                 
@@ -99,6 +111,7 @@ def main():
         S = (sxixit - (n * np.outer(m,m))) / (n - 1.0)
         np.save('data/5.3_cov.npy', S)
     print '\nS: \n', S
+    # print '\nnp.cov(X)\n', np.cov(X)
     l, V = eigsorted(S)
 
     plotter(2, l)
